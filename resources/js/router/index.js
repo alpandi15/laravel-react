@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import LoginPage from '../pages/auth/login'
-import Example from '../pages/Example'
+import Dashboard from '../pages/dashboard'
 import User from '../pages/User'
 
 class Router extends Component {
@@ -10,7 +10,7 @@ class Router extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path='/login' component={LoginPage} />
-          <Route exact path='/' component={Example} />
+          <Route exact path='/' component={Dashboard} />
           <Route exact path='/user' component={User} />
         </Switch>
       </BrowserRouter>
