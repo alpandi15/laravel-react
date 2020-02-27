@@ -13,6 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import { connect } from 'react-redux'
+import { Field, reduxForm, getFormValues } from 'redux-form'
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -46,9 +49,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn(props) {
-  console.log(props)
-  const classes = useStyles();
+const SignIn = ({
+  invalid,
+  submitting,
+  handleSubmit,
+  ...props
+}) => {
+  const classes = useStyles()
+
+  const handleLogin = (values) => {
+    console.log(values)
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -60,7 +71,11 @@ export default function SignIn(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+            className={classes.form}
+            noValidate
+            onSubmit={handleSubmit(handleLogin)}
+        >handleLogin
           <TextField
             variant="outlined"
             margin="normal"
@@ -116,3 +131,19 @@ export default function SignIn(props) {
     </Container>
   )
 }
+
+const mapStateToProps = (state) => {
+  const { authStore } = state
+  return {
+    authStore,
+    values: getFormValues('LoginForm')(state)
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+//   getLoginData: (data) => dispatch(getLoginData(data))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+    form: 'LoginForm'
+})(SignIn))
