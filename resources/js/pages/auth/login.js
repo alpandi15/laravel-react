@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import InputField from '../../components/FormField/Input'
+
 import { connect } from 'react-redux'
 import { Field, reduxForm, getFormValues } from 'redux-form'
 
@@ -75,8 +77,9 @@ const SignIn = ({
             className={classes.form}
             noValidate
             onSubmit={handleSubmit(handleLogin)}
-        >handleLogin
-          <TextField
+        >
+          <Field
+            component={InputField}
             variant="outlined"
             margin="normal"
             required
@@ -86,8 +89,11 @@ const SignIn = ({
             name="email"
             autoComplete="email"
             autoFocus
+            type="text"
+            placeholder="Email"
           />
-          <TextField
+          <Field
+            component={InputField}
             variant="outlined"
             margin="normal"
             required
@@ -97,6 +103,7 @@ const SignIn = ({
             type="password"
             id="password"
             autoComplete="current-password"
+            placeholder="Password"
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
