@@ -87,13 +87,13 @@ const SignIn = ({
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="account"
+            label="Email/Username"
+            name="account"
+            autoComplete="account"
             autoFocus
             type="text"
-            placeholder="Email"
+            placeholder="Email/Username"
           />
           <Field
             component={InputField}

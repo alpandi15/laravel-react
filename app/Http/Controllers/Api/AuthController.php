@@ -30,7 +30,14 @@ class AuthController extends Controller
   }
 
   function login (Request $request) {
-    return response()->json($request->all(), 200);
+    $this->validate($request, [
+        'account'   => 'required',
+        'password' => 'required|min:6'
+    ]);
+
+    $account = $request->account;
+    $password = $request->password;
+
   }
 }
 
