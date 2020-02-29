@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import TextField from '@material-ui/core/TextField'
 
 const Input = ({
+    input,
     label,
     placeholder,
     maxLength,
@@ -19,6 +20,7 @@ const Input = ({
 }) => {
     return (
         <TextField
+            {...input}
             variant="outlined"
             margin={margin}
             required
