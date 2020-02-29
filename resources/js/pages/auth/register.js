@@ -4,7 +4,6 @@ import {
     Avatar,
     Button,
     CssBaseline,
-    TextField,
     FormControlLabel,
     Checkbox,
     Grid,
@@ -14,6 +13,10 @@ import {
 } from '@material-ui/core'
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Field, reduxForm, getFormValues } from 'redux-form'
+import InputField from '../../components/FormField/Input'
+import axios from 'axios'
 
 function Copyright() {
   return (
@@ -48,8 +51,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignUp() {
+const SignUp = ({
+    handleSubmit
+}) => {
   const classes = useStyles();
+
+  const onSubmit = async (values) => {
+    const res = await axios.post('/api/register', values)
+    console.log(res)
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -61,10 +71,15 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+            className={classes.form}
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField
+              <Field
+                component={InputField}
                 variant="outlined"
                 required
                 fullWidth
@@ -75,7 +90,8 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <Field
+                component={InputField}
                 variant="outlined"
                 required
                 fullWidth
@@ -86,7 +102,8 @@ export default function SignUp() {
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
+              <Field
+                component={InputField}
                 variant="outlined"
                 required
                 fullWidth
@@ -128,3 +145,19 @@ export default function SignUp() {
     </Container>
   );
 }
+
+const mapStateToProps = (state) => {
+    const { authStore } = state
+    return {
+      authStore,
+      values: getFormValues('RegisterForm')(state)
+    }
+  }
+
+  const mapDispatchToProps = (dispatch) => ({
+  //   getLoginData: (data) => dispatch(getLoginData(data))
+  })
+
+  export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+      form: 'RegisterForm'
+  })(SignUp))

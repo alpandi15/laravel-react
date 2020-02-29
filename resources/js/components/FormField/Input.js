@@ -40,7 +40,7 @@ const Input = ({
 
 Input.propTypes = {
   label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   maxLength: PropTypes.number,
   autoFocus: PropTypes.bool,
   disabled: PropTypes.bool,
