@@ -2,21 +2,23 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import {
     Avatar,
-    Button,
     CssBaseline,
     FormControlLabel,
     Checkbox,
     Grid,
     Box,
     Typography,
-    Container
+    Container,
+    CircularProgress
 } from '@material-ui/core'
 import { LockOutlined as LockOutlinedIcon } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Field, reduxForm, getFormValues } from 'redux-form'
-import InputField from '../../components/FormField/Input'
 import axios from 'axios'
+import InputField from '../../components/FormField/Input'
+import Button from '../../components/FormField/Button'
+import validate from './validate'
 
 function Copyright() {
   return (
@@ -52,6 +54,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SignUp = ({
+    invalid,
+    loading,
+    submitting,
     handleSubmit
 }) => {
   const classes = useStyles();
@@ -139,9 +144,11 @@ const SignUp = ({
             variant="contained"
             color="primary"
             className={classes.submit}
-          >
-            Sign Up
-          </Button>
+            text="Login"
+            invalid={invalid}
+            submitting={submitting}
+            loading={loading}
+          />
           <Grid container justify="flex-end">
             <Grid item>
               <Link to="/login" variant="body2">
@@ -171,5 +178,6 @@ const mapStateToProps = (state) => {
   })
 
   export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-      form: 'RegisterForm'
+      form: 'RegisterForm',
+      validate
   })(SignUp))

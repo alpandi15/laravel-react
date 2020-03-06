@@ -1,6 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import TextField from '@material-ui/core/TextField'
+import {
+    TextField,
+    FormControl,
+    FormHelperText
+} from '@material-ui/core'
 
 const Input = ({
     input,
@@ -15,26 +19,30 @@ const Input = ({
     name,
     autoComplete,
     meta: {
-        error
+        error,
+        touched
     }
 }) => {
     return (
-        <TextField
-            {...input}
-            variant="outlined"
-            margin={margin}
-            required
-            fullWidth
-            id={id}
-            label={label}
-            name={name}
-            autoComplete={autoComplete}
-            autoFocus={autoFocus}
-            placeholder={placeholder}
-            maxLength={maxLength}
-            disabled={disabled}
-            type={type}
-        />
+        <FormControl error={error && touched} variant="standard">
+            {error && touched && <FormHelperText id="component-error-text">{error}</FormHelperText>}
+            <TextField
+                {...input}
+                variant="outlined"
+                margin={margin}
+                required
+                fullWidth
+                id={id}
+                label={label}
+                name={name}
+                autoComplete={autoComplete}
+                autoFocus={autoFocus}
+                placeholder={placeholder}
+                maxLength={maxLength}
+                disabled={disabled}
+                type={type}
+            />
+        </FormControl>
     )
 }
 

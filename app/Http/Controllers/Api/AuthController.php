@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends ApiController
 {
-  function register (Request $request) {
+  function register (RegisterRequest $request) {
     try {
         $file_name = "";
         if($file = $request->file('img_profil')){
